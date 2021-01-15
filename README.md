@@ -5,11 +5,16 @@
 * cgi-bin: Where Python script is located
 * htdocs: Static web page
 
-## Build
+## Run
 To run this image, simply issue the command
 ```bash
 # docker-compose up
 ```
+or
+```bash
+# docker-compose up -d
+```
+with detached shell.
 
 ## Python Module
 To add module(s) to Python 3 either using PIP or APT, rewrite Dockerfile in apache-python-image like:

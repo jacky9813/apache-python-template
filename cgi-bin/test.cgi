@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import cgi
 import json
-import sys, pkg_resources, platform
+import sys, pkg_resources, platform, os
 
 # Header
 
@@ -38,7 +38,8 @@ border-collapse: collapse;
 print("""<table>
 <tr><td>System Version</td><td>%s</td></tr>
 <tr><td>Python Version</td><td>%s</td></tr>
-</table><hr>""" % (platform.platform(), sys.version))
+<tr><td>Server Software</td><td>%s</td></tr>
+</table><hr>""" % (platform.platform(), sys.version, os.environ["SERVER_SOFTWARE"]))
 
 # Print Package info
 
@@ -49,7 +50,18 @@ print("""<h3>Installed Packages</h3>
 for i in sorted(pkg_resources.working_set, key=lambda i : i.key):
     print("<tr><td>%s</td><td>%s</td></tr>" % (i.key, i.version))
 
-print("</table>")
+print("</table><hr>")
+
+# Print Environment Info
+
+print("""<h3>Environment Info</h3>
+<table>
+<tr><th>Key</th><th>Value</th></tr>""")
+
+for i in sorted(os.environ.keys()):
+    print("<tr><td>%s</td><td>%s</td></tr>" % (i, os.environ[i]))
+
+print("</table><hr>")
 
 print("""</body>
 </html>""")
